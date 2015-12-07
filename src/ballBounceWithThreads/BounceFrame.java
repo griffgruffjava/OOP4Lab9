@@ -48,7 +48,27 @@ public class BounceFrame extends JFrame {
     private class ButtonHandler implements ActionListener {
         Ball r1;
         LinkedList<Ball> myBalls = new LinkedList<Ball>();
-        
+        public void actionPerformed(ActionEvent event) {
+            if (event.getSource() == startButton) {
+                r1 = new Ball(canvas);
+                myBalls.add(r1);
+                Thread t1 = new Thread(r1);
+                t1.start();
+            } else if (event.getSource() == closeButton) {
+                System.exit(0);
+            } else if (event.getSource() == stopAllButton) {
+                for(Ball b: myBalls)
+                {
+                    Ball tempBall = b;
+                    tempBall.stop();   
+                }   
+            } else if (event.getSource() == stopFirstButton) {
+                Ball tempBall = myBalls.removeFirst();// stop first ball
+                tempBall.stop();
+            } else if (event.getSource() == stopLastButton) {
+                Ball tempBall = myBalls.removeLast();// stop first ball
+                tempBall.stop();
+            }
         }
     }
 }
